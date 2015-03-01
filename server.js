@@ -7,7 +7,8 @@ var http = require('http'),
     api = require('./lib/api.js'),
     Cache = require('./lib/cache.js'),
     Package = require('./lib/package.js'),
-    Resource = require('./lib/resource.js');
+    Resource = require('./lib/resource.js'),
+    Git = require('./lib/git.js');
 
 function start(config) {
   var minilog = require('minilog');
@@ -60,6 +61,11 @@ function start(config) {
     remoteUrl: config.remoteUrl,
     rejectUnauthorized: config.rejectUnauthorized
   };
+
+    Git.configure({
+        logger: log,
+        cachePath: config.cacheDirectory
+    });
 
   Package.configure(packageConfig);
   api.configure(packageConfig);
